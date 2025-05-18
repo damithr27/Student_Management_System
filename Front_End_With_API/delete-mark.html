@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete Mark</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-purple: #6a0dad;
+      --light-purple: #9c27b0;
+      --pink-accent: #e91e63;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f8f9fa, #e0e0e0);
+    }
+
+    .form-card {
+      max-width: 600px;
+      margin: 100px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 {
+      color: var(--primary-purple);
+      margin-bottom: 20px;
+    }
+
+    .btn-danger {
+      background-color: var(--pink-accent);
+      border: none;
+    }
+
+    .btn-danger:hover {
+      background-color: #c2185b;
+    }
+
+    .btn-cancel {
+      background-color: var(--primary-purple);
+      color: white;
+    }
+
+    .btn-cancel:hover {
+      background-color: var(--light-purple);
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+    <h2><i class="fas fa-trash-alt me-2"></i>Delete Marks</h2>
+    <p id="markMessage">Are you sure you want to delete this mark?</p>
+    <form>
+      <button type="submit" class="btn btn-danger me-3"><i class="fas fa-trash"></i> Yes, Delete</button>
+      <a href="teachers admin.html" class="btn btn-cancel">Cancel</a>
+    </form>
+  </div>
+
+  <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const markId = urlParams.get("id");
+
+  if (!markId) {
+    alert("No mark ID specified!");
+    window.location.href = "teachers admin.html";
+  }
+
+  fetch(`http://localhost:8086/api/teacher/marks/${markId}`)
+    .then(res => res.json())
+    .then(mark => {
+      document.getElementById("markMessage").innerHTML =
+        `Are you sure you want to delete marks for <strong>${mark.sid}</strong>?`;
+    })
+    .catch(() => {
+      document.getElementById("markMessage").innerHTML =
+        "Are you sure you want to delete this mark?";
+    });
+
+  document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    fetch(`http://localhost:8086/api/teacher/marks/${markId}`, {
+      method: "DELETE"
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("Mark deleted successfully!");
+        window.location.href = "teachers admin.html";
+      } else {
+        return response.text().then(text => { throw new Error(text); });
+      }
+    })
+    .catch(error => {
+      alert("Failed to delete mark: " + error.message);
+      console.error("Delete error:", error);
+    });
+  });
+</script>
+
+</body>
+</html>
+

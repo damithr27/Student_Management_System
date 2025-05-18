@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact - Vijaya College</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-purple: #6a0dad;
+      --light-purple: #9c27b0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+    }
+    h1, h2 {
+      color: var(--primary-purple);
+      font-weight: 600;
+    }
+    .navbar-nav .nav-link {
+      color: white !important;
+      font-weight: 500;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      text-decoration: underline;
+    }
+    footer {
+      background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .footer-links a {
+      color: #eee;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+    .map-responsive {
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      position: relative;
+      height: 0;
+    }
+    .map-responsive iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #6a0dad, #9c27b0);">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="homepage.html">
+        <i class="fas fa-graduation-cap me-2"></i>Vijaya College
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="academics.html">Academics</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">Admissions</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container py-5">
+    <h1 class="mb-4">Contact Vijaya College</h1>
+
+    <div class="row mb-5">
+      <div class="col-md-6">
+        <h2>Get in Touch</h2>
+        <p>If you have any questions about admissions, academics, or general inquiries, feel free to contact us:</p>
+        <ul class="list-unstyled">
+          <li><i class="fas fa-map-marker-alt me-2 text-secondary"></i>No. 45, Temple Road, Colombo 07, Sri Lanka</li>
+          <li><i class="fas fa-envelope me-2 text-secondary"></i><a href="mailto:info@vijayacollege.edu.lk">info@vijayacollege.edu.lk</a></li>
+          <li><i class="fas fa-phone me-2 text-secondary"></i>+94 11 2345678</li>
+          <li><i class="fas fa-globe me-2 text-secondary"></i><a href="#">www.vijayacollege.edu.lk</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-6">
+        <h2>Send a Message</h2>
+        <form>
+          <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Your full name" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea class="form-control" id="message" rows="4" placeholder="Type your message here..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+
+    <h2 class="mb-3">Find Us on the Map</h2>
+    <div class="map-responsive mb-5">
+      <iframe src="https://www.google.com/maps?q=colombo+07+sri+lanka&output=embed"></iframe>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-links">
+      <a href="homepage.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="academics.html">Academics</a>
+      <a href="admissions.html">Admissions</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p class="mb-0">&copy; 2025 Vijaya College. All Rights Reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

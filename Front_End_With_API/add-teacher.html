@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Teacher</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary-purple: #6a0dad;
+      --light-purple: #9c27b0;
+      --pink-accent: #e91e63;
+      --light-bg: #f8f9fa;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--light-bg) 0%, #e0e0e0 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-container {
+      max-width: 600px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-top: 60px;
+    }
+
+    h2 {
+      color: var(--primary-purple);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-purple);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--light-purple);
+    }
+
+    label {
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container d-flex justify-content-center">
+    <div class="form-container">
+      <h2>Add Teacher</h2>
+      <form id="addTeacherForm">
+        <div class="mb-3">
+          <label for="tName" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="tName" required>
+        </div>
+        <div class="mb-3">
+          <label for="subject" class="form-label">Subject</label>
+          <input type="text" class="form-control" id="subject" required>
+        </div>
+        <div class="mb-3">
+          <label for="ClassName" class="form-label">Class Name</label>
+          <input type="text" class="form-control" id="className" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Add Teacher</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const tName = document.getElementById("tName"),
+          subject = document.getElementById("subject"),
+          className = document.getElementById("className");
+
+    document.getElementById("addTeacherForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const data = {
+        tName: tName.value,
+        subject: subject.value,
+        className: className.value
+      };
+
+      fetch("http://localhost:8086/api/teacher", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to add teacher.");
+        return res.json();
+      })
+      .then(resp => {
+        alert("✅ Teacher added successfully!");
+        window.location.href = "teachers admin.html";
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        alert("❌ Failed to add teacher.");
+      });
+    });
+  </script>
+</body>
+</html>
+
+

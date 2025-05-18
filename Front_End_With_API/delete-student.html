@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete Student</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-purple: #6a0dad;
+      --light-purple: #9c27b0;
+      --pink-accent: #e91e63;
+      --light-bg: #f8f9fa;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--light-bg) 0%, #e0e0e0 100%);
+      min-height: 100vh;
+    }
+
+    .form-card {
+      max-width: 600px;
+      margin: 80px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 {
+      color: var(--primary-purple);
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--primary-purple);
+    }
+
+    input.form-control {
+      max-width: 350px;
+      margin: 0 auto 25px auto;
+    }
+
+    .btn-danger {
+      background-color: var(--pink-accent);
+      border: none;
+    }
+
+    .btn-danger:hover {
+      background-color: #c2185b;
+    }
+
+    .btn-secondary {
+      background-color: var(--primary-purple);
+      border: none;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--light-purple);
+    }
+
+    .form-control:focus {
+      border-color: var(--light-purple);
+      box-shadow: 0 0 0 0.25rem rgba(156, 39, 176, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+    <h2><i class="fas fa-user-times me-2"></i>Delete Student</h2>
+    <form id="deleteForm">
+      <div class="mb-3">
+        <label for="studentId" class="form-label">Enter Student ID to Delete</label>
+        <input type="text" class="form-control text-center" id="studentId" name="studentId" placeholder="e.g., STU2023001" required>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-danger me-3"><i class="fas fa-trash-alt me-1"></i>Yes, Delete</button>
+        <a href="teachers admin.html" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Cancel</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("deleteForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const studentId = document.getElementById("studentId").value;
+
+      if (confirm("Are you sure you want to delete this student?")) {
+        try {
+          const response = await fetch(`http://localhost:8086/api/teacher/student/${studentId}`, {
+            method: "DELETE"
+          });
+
+          if (response.ok) {
+            alert("Student deleted successfully.");
+            window.location.href = "teachers admin.html";
+          } else {
+            const errText = await response.text();
+            alert("Failed to delete student:\n" + errText);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An error occurred while deleting the student.");
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+

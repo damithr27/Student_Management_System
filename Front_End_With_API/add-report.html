@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Report</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-purple: #6a0dad;
+      --light-purple: #9c27b0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8f9fa, #e0e0e0);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px;
+    }
+
+    .form-card {
+      background: #fff;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: var(--primary-purple);
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    .btn-purple {
+      background-color: var(--primary-purple);
+      color: white;
+      border: none;
+    }
+
+    .btn-purple:hover {
+      background-color: var(--light-purple);
+    }
+
+    .form-control:focus {
+      border-color: var(--light-purple);
+      box-shadow: 0 0 0 0.25rem rgba(106,13,173,.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+    <h2><i class="fas fa-file-alt me-2"></i>Add Report</h2>
+    <form id="reportForm">
+      <div class="mb-3">
+        <label for="studentId">Student ID</label>
+        <input type="text" class="form-control" id="studentId" placeholder="e.g. STU2023001" required />
+      </div>
+      <div class="mb-3">
+        <label for="report">Report Description</label>
+        <input type="text" class="form-control" id="report" placeholder="e.g. Term 1 Progress Report" required />
+      </div>
+      <button type="submit" class="btn btn-purple w-100">Submit</button>
+    </form>
+  </div>
+
+  <script>
+  document.getElementById("reportForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const reportData = {
+      sid: document.getElementById("studentId").value,
+      description: document.getElementById("report").value
+    };
+
+    fetch("http://localhost:8086/api/teacher/report", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reportData)
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("Report added successfully!");
+        window.location.href = "teachers admin.html";
+      } else {
+        return response.text().then(text => { throw new Error(text); });
+      }
+    })
+    .catch(err => {
+      alert("Failed to add report: " + err.message);
+      console.error("Error:", err);
+    });
+  });
+</script>
+
+</body>
+</html>
