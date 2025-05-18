@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Report</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-purple: #6a0dad;
+      --light-purple: #9c27b0;
+      --pink-accent: #e91e63;
+      --light-bg: #f8f9fa;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--light-bg), #e0e0e0);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px;
+    }
+
+    .form-card {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: var(--primary-purple);
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--primary-purple);
+    }
+
+    .btn-purple {
+      background-color: var(--primary-purple);
+      color: white;
+      border: none;
+    }
+
+    .btn-purple:hover {
+      background-color: var(--light-purple);
+    }
+
+    .form-control:focus {
+      border-color: var(--light-purple);
+      box-shadow: 0 0 0 0.25rem rgba(106,13,173,.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+    <h2><i class="fas fa-file-alt me-2"></i>Edit Report</h2>
+    <form>
+      <div class="mb-3">
+        <label for="studentId" class="form-label">Student ID</label>
+        <input type="text" class="form-control" id="studentId" readonly />
+      </div>
+      <div class="mb-3">
+        <label for="reportContent" class="form-label">Report Content</label>
+        <textarea class="form-control" id="reportContent" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-purple w-100">Update Report</button>
+    </form>
+  </div>
+
+  <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const reportId = urlParams.get("id");
+
+  if (!reportId) {
+    alert("No report ID provided!");
+    window.location.href = "teachers admin.html";
+  }
+
+  fetch(`http://localhost:8086/api/teacher/report/${reportId}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to fetch report.");
+      return res.json();
+    })
+    .then(report => {
+      document.getElementById("studentId").value = report.sid;
+      document.getElementById("reportContent").value = report.description || "";
+    })
+    .catch(err => {
+      console.error("Failed to load report:", err);
+      alert("Error loading report details.");
+    });
+
+  document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const updatedReport = {
+      id: parseInt(reportId),
+      sid: document.getElementById("studentId").value,
+      description: document.getElementById("reportContent").value
+    };
+
+    fetch(`http://localhost:8086/api/teacher/report/${reportId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedReport)
+    })
+    .then(res => {
+      if (res.ok) {
+        alert("Report updated successfully!");
+        window.location.href = "teachers admin.html";
+      } else {
+        return res.text().then(text => { throw new Error(text); });
+      }
+    })
+    .catch(err => {
+      console.error("Error updating report:", err);
+      alert("Failed to update report: " + err.message);
+    });
+  });
+</script>
+
+</body>
+</html>
+

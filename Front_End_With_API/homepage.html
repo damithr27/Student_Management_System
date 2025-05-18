@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vijaya College - Student Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-purple: #6a0dad;
+      --light-purple: #9c27b0;
+      --pink-accent: #e91e63;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e9e3f0 0%, #d6d1e0 100%);
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+      padding: 15px 0;
+    }
+
+    .navbar-brand, .nav-link {
+      color: white !important;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+
+    .hero-section {
+      background-color: #f1e9fc;
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .college-name {
+      font-weight: 700;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      color: var(--primary-purple);
+      text-transform: uppercase;
+    }
+
+    .college-subtitle {
+      font-size: 1.3rem;
+      color: var(--primary-purple);
+      margin-bottom: 30px;
+    }
+
+    .animation-container {
+      height: 160px;
+      background: url('https://cdn.dribbble.com/users/129991/screenshots/4700174/media/9dbb1b0e1aec8f9a8d1b5e5e5e5e5e5e.gif') center/contain no-repeat;
+      margin: 0 auto 20px;
+    }
+
+    .portal-section {
+      background-color: #f9f6ff;
+      padding: 30px 0 30px;
+    }
+
+    .section-title {
+      color: var(--primary-purple);
+      font-weight: 600;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--pink-accent), var(--light-purple));
+      transform: translateX(-50%);
+    }
+
+    .portal-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .portal-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .portal-icon {
+      font-size: 3.5rem;
+      color: var(--primary-purple);
+      margin-bottom: 20px;
+    }
+
+    .btn-portal {
+      background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn-portal:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(135deg, var(--light-purple), var(--primary-purple));
+      color: white;
+    }
+
+    footer {
+      background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+      color: white;
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .college-name {
+        font-size: 2rem;
+      }
+      .college-subtitle {
+        font-size: 1.1rem;
+      }
+      .portal-card {
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap me-2"></i>Vijaya College</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="academics.html">Academics</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">Admissions</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="college-name">Welcome to Vijaya College</h1>
+      <p class="college-subtitle">Excellence in Education and Student Development</p>
+      <div class="animation-container"></div>
+    </div>
+  </section>
+  <section class="portal-section">
+    <div class="container">
+      <h2 class="section-title">College Portals</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-5 mb-4">
+          <div class="portal-card">
+            <div class="portal-icon"><i class="fas fa-user-graduate"></i></div>
+            <h4>Student Portal</h4>
+            <p>Access academic records, attendance, and more.</p>
+            <a href="login.html" class="btn-portal"><i class="fas fa-sign-in-alt me-2"></i>Student Login</a>
+          </div>
+        </div>
+        <div class="col-md-5 mb-4">
+          <div class="portal-card">
+            <div class="portal-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <h4>Faculty Portal</h4>
+            <p>Manage classes, attendance, and student records.</p>
+            <a href="teachers admin.html" class="btn-portal"><i class="fas fa-sign-in-alt me-2"></i>Faculty Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-links">
+      <a href="homepage.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="academics.html">Academics</a>
+      <a href="admissions.html">Admissions</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p class="mb-0">&copy; 2025 Vijaya College. All Rights Reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

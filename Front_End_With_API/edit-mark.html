@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Marks</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-purple: #6a0dad;
+      --light-purple: #9c27b0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8f9fa, #e0e0e0);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px;
+    }
+
+    .form-card {
+      background: #fff;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: var(--primary-purple);
+      margin-bottom: 25px;
+    }
+
+    .btn-purple {
+      background-color: var(--primary-purple);
+      color: white;
+      border: none;
+    }
+
+    .btn-purple:hover {
+      background-color: var(--light-purple);
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    .form-control:focus {
+      border-color: var(--light-purple);
+      box-shadow: 0 0 0 0.25rem rgba(106, 13, 173, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+    <h2><i class="fas fa-edit me-2"></i>Edit Marks</h2>
+    <form>
+      <div class="mb-3">
+        <label for="studentId" class="form-label">Student ID</label>
+        <input type="text" class="form-control" id="studentId" readonly />
+      </div>
+      <div class="mb-3">
+        <label for="maths" class="form-label">Maths</label>
+        <input type="number" class="form-control" id="maths" min="0" max="100" required />
+      </div>
+      <div class="mb-3">
+        <label for="physics" class="form-label">Physics</label>
+        <input type="number" class="form-control" id="physics" min="0" max="100" required />
+      </div>
+      <div class="mb-3">
+        <label for="chemistry" class="form-label">Chemistry</label>
+        <input type="number" class="form-control" id="chemistry" min="0" max="100" required />
+      </div>
+      <button type="submit" class="btn btn-purple w-100">Update Marks</button>
+    </form>
+  </div>
+
+  <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const markId = urlParams.get("id");
+
+  if (!markId) {
+    alert("No mark ID provided!");
+    window.location.href = "teachers admin.html";
+  }
+
+  // Fetch mark details to prefill form
+  fetch(`http://localhost:8086/api/teacher/marks/${markId}`)
+    .then(response => response.json())
+    .then(mark => {
+      document.getElementById("studentId").value = mark.sid;
+      document.getElementById("maths").value = mark.maths;
+      document.getElementById("physics").value = mark.physics;
+      document.getElementById("chemistry").value = mark.chemestry;
+    })
+    .catch(err => {
+      console.error("Error fetching mark:", err);
+      alert("Failed to load mark details.");
+    });
+
+  // Handle form submission
+  document.querySelector("form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const updatedMark = {
+      id: parseInt(markId),
+      sid: document.getElementById("studentId").value.trim(),
+      maths: parseInt(document.getElementById("maths").value),
+      physics: parseInt(document.getElementById("physics").value),
+      chemestry: parseInt(document.getElementById("chemistry").value)
+    };
+
+    fetch(`http://localhost:8086/api/teacher/marks/${markId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedMark)
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("Marks updated successfully!");
+        window.location.href = "teachers admin.html";
+      } else {
+        return response.text().then(text => { throw new Error(text); });
+      }
+    })
+    .catch(error => {
+      console.error("Update failed:", error);
+      alert("Failed to update mark: " + error.message);
+    });
+  });
+</script>
+
+</body>
+</html>
+
